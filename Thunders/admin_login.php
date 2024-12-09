@@ -110,7 +110,7 @@ include('config.php');
         <img src="logo.png" alt="eThunders Logo"> 
     </div>
     <div class="container">
-        <div class="header">eThunders Kehadiran</div>
+        <div class="header">eThunders Kehadiran admin</div>
         <div class="table-container">
             <table>
                 <tr>
@@ -134,7 +134,7 @@ include('config.php');
                     }
                     echo "<td>
                             <a href='add1.php?tarikh={$row[0]}&hari={$row[1]}&masa={$row[2]}&aktiviti={$row[3]}'>
-                                Isi Kehadiran
+                                lihat Kehadiran
                             </a>
                           </td>";
                     echo "</tr>";
@@ -143,7 +143,7 @@ include('config.php');
             </table>
         </div>
         <div class="footer">
-            <a href="admin.php">ADMIN</a> <!-- Replace 'admin_dashboard.php' with your admin page file -->
+            <a href="add2.php">TAMBAH TARIKH LATIHAN</a> <!-- Replace 'admin_dashboard.php' with your admin page file -->
         </div>
     </div>
 </body>
