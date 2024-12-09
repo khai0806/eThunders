@@ -1,3 +1,7 @@
+
+<?php 
+include('config.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -107,7 +111,7 @@
         <img src="logo.png" alt="eThunders Logo"> 
     </div>
     <div class="container">
-        <div class="header">eThunders Kehadiran</div>
+        <div class="header">eThunders Kehadiran admin</div>
         <div class="table-container">
             <table>
                 <tr>
@@ -130,8 +134,8 @@
                         echo "<td>$cell</td>";
                     }
                     echo "<td>
-                            <a href='tambah.php?tarikh={$row[0]}&hari={$row[1]}&masa={$row[2]}&aktiviti={$row[3]}'>
-                                Isi Kehadiran
+                            <a href='kehadiran.php?tarikh={$row[0]}&hari={$row[1]}&masa={$row[2]}&aktiviti={$row[3]}'>
+                                lihat Kehadiran
                             </a>
                           </td>";
                     echo "</tr>";
@@ -140,7 +144,7 @@
             </table>
         </div>
         <div class="footer">
-            <a href="login_admin.php">ADMIN</a> <!-- Replace 'admin_dashboard.php' with your admin page file -->
+            <a href="tambah_admin.php">TAMBAH TARIKH LATIHAN</a> <!-- Replace 'admin_dashboard.php' with your admin page file -->
         </div>
     </div>
 </body>

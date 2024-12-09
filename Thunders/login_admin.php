@@ -1,8 +1,9 @@
+
 <?php
 
 // Hardcoded credentials for the admin
 $admin_username = "admin";
-$admin_password = "123";
+$admin_password = "password123";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Retrieve the username and password from the form
@@ -13,15 +14,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION['loggedin'] = true;
         $_SESSION['username'] = $username;
 
-        header("Location: login_admin.php");
+        header("Location: admin_page.php");
         exit();
-    } else {
-        header("Location: login_admin.php?error=invalid_credentials");
-        exit();
-    }
-} else {
-    header("Location: login_admin.php");
-    exit();
+    } 
 }
 ?>
 
@@ -35,6 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             background-image: url('Team_Thunders.jpg');
             margin: 0;
             font-family: 'Roboto', sans-serif;
+            background-size: cover;
+            background-repeat: no-repeat;
         }
         .container {
             width: 300px;
@@ -92,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <body>
     <div class="container">
         <div class="header">eThunders ADMIN</div>
-        <form action="login_admin.php" method="post">
+        <form action="admin_page.php" method="post">
             <div class="form-group">
                 <label for="username">USERNAME</label>
                 <input type="text" id="username" name="username" required>
@@ -101,9 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <label for="password">PASSWORD</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" href="admin_page.php">
         </form>
-        <div class="admin-view">ADMIN VIEW</div>
-    </div>
 </body>
 </html>

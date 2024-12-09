@@ -1,10 +1,13 @@
 <?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "Thunders";
 
-$host = 'localhost';
-$username = 'root';
-$password = '';
-$dbname = 'eThunders';
+// Create connection
+$connect = mysqli_connect($servername, $username, $password, $database);
 
-	$con = mysqli_connect($host , $username , $password , $dbname);
-
+if (!$connect) {
+    die("gagal disambung ke db" . mysqli_connect_error());
+}
 ?>

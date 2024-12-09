@@ -1,24 +1,3 @@
-<?php
-include_once('config.php');
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $angka_giliran = htmlspecialchars($_POST['angka_giliran']);
-    $nama = htmlspecialchars($_POST['nama']);
-    $hadir = isset($_POST['hadir']) ? 'Hadir' : 'Tidak Hadir'; // Check if the radio button is checked
-
-    // Save data to a file (optional)
-    $file = fopen("attendance_records.txt", "a");
-    fwrite($file, "Angka Giliran: $angka_giliran\nNama: $nama\nStatus: $hadir\n---\n");
-    fclose($file);
-
-    // Redirect or display success message
-    echo "<h1>Data submitted successfully!</h1>";
-    echo "<p>Angka Giliran: $angka_giliran</p>";
-    echo "<p>Nama: $nama</p>";
-    echo "<p>Status Kehadiran: $hadir</p>";
-    exit; // Stop further processing
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="form-container">
         <h2>eThunders Kehadiran</h2>
-        <form action="process.php" method="post">
+        <form action="index.php" method="post"> <!-- Update to kehadiran.php -->
             <label>ANGKA GILIRAN</label>
             <input type="text" name="angka_giliran" required>
 
@@ -102,12 +81,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="text" name="nama" required>
 
             <label>KEHADIRAN</label>
-            <input type="radio" name="hadir" value="1"> Hadir
-            <input type="radio" name="hadir" value=" 2"> Tidak Hadir
-        
-        <label></label>
+            <input type="radio" name="hadir" value="Hadir"> Hadir
+            <input type="radio" name="hadir" value="Tidak Hadir"> Tidak Hadir
+
             <input type="submit" value="Submit">
         </form>
     </div>
 </body>
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $angka_giliran = htmlspecialchars($_POST['angka_giliran']);
+    $nama = htmlspecialchars($_POST['nama']);
+    $hadir = htmlspecialchars($_POST['hadir']);
+
+    // Process or save the data as needed
+    echo "<h1>Data Kehadiran</h1>";
+    echo "<p>Angka Giliran: $angka_giliran</p>";
+    echo "<p>Nama: $nama</p>";
+    echo "<p>Status Kehadiran: $hadir</p>";
+
+    // Optionally, save data to a file or database
+    $file = fopen("attendance_records.txt", "a");
+    fwrite($file, "Angka Giliran: $angka_giliran\nNama: $nama\nStatus Kehadiran: $hadir\n---\n");
+    fclose($file);
+}
+?>
+
 </html>
