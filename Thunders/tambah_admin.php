@@ -3,19 +3,17 @@
 include_once('config.php');
 
 // Check if the request method is POST
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Sanitize and retrieve form inputs
-    $tarikh = htmlspecialchars(trim($_POST['angka_giliran'])); // TARIKH
-    $hari = htmlspecialchars(trim($_POST['nama']));           // HARI
-    $masa = htmlspecialchars(trim($_POST['masa']));           // MASA
-    $aktiviti = htmlspecialchars(trim($_POST['aktivit']));    // AKTIVITI
+if(isset($_POST['hantar']))
+{
+	$tarikh = $_POST["tarikh"];
+	$hari =$_POST["hari"];
+	$masa = $_POST["masa"];
+	$aktiviti = $_POST["aktiviti"];
 
-    // Save data to a file for records (optional)
-    $file = fopen("attendance_records.txt", "a");
-    if ($file) {
-        fwrite($file, "Tarikh: $tarikh\nHari: $hari\nMasa: $masa\nAktiviti: $aktiviti\n---\n");
-        fclose($file);
-    }
+	$result = mysqli_query($connect,"INSERT INTO jadal_thunders(tarikh, hari, masa, aktiviti)"."VALUES('$tarikh','$hari','$masa','$aktiviti')");
+	echo "Berjaya Daftar";
+	header('location:admin_page.php');
+}
 
     // Display success message
     echo "<!DOCTYPE html>
@@ -40,17 +38,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         </style>
     </head>
-    <body>
-        <h1>Data Submitted Successfully!</h1>
-        <p><strong>TARIKH:</strong> $tarikh</p>
-        <p><strong>HARI:</strong> $hari</p>
-        <p><strong>MASA:</strong> $masa</p>
-        <p><strong>AKTIVITI:</strong> $aktiviti</p>
-        <a href='index.php' style='display: inline-block; margin-top: 20px; padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 5px;'>Back to Form</a>
-    </body>
     </html>";
-    exit; // Stop further processing
-}
+   
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -122,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="form-container">
         <h2>eThunders Kehadiran</h2>
-        <form action="index.php" method="post">
+        <form action="admin_page.php" method="post">
             <label for="tarikh">TARIKH</label>
             <input type="text" name="angka_giliran" id="tarikh" required>
 

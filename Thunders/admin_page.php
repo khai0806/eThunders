@@ -114,7 +114,7 @@ include('config.php');
         <div class="header">eThunders Kehadiran admin</div>
         <div class="table-container">
             <table>
-                <tr>
+            <tr>
                     <th>TARIKH</th>
                     <th>HARI</th>
                     <th>MASA</th>
@@ -122,20 +122,22 @@ include('config.php');
                     <th>KEHADIRAN</th>
                 </tr>
                 <?php
-                $data = [
-                    ["2024-12-01", "Isnin", "08:00 AM", "TRAINING TAP"],
-                    ["2024-12-02", "Selasa", "09:00 AM", "TRAINING PADDING AND TACKLING"],
-                    ["2024-12-03", "Rabu", "10:00 AM", "STRENGHT TRAINING"]
-                ];
-
-                foreach ($data as $index => $row) {
-                    echo "<tr>";
-                    foreach ($row as $cell) {
-                        echo "<td>$cell</td>";
+                $query ="SELECT * FROM jadual_thunders";
+                $result = mysqli_query ($connect,$query);
+            
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $id = $row['tarikh'];
+            
+                    echo"<tr>";
+            
+                    foreach ($row as $attribute) {
+                        echo "<th>";
+                        echo ($attribute);
+                        echo "</th>";
                     }
                     echo "<td>
-                            <a href='kehadiran.php?tarikh={$row[0]}&hari={$row[1]}&masa={$row[2]}&aktiviti={$row[3]}'>
-                                lihat Kehadiran
+                            <a href='tambah.php?tarikh'>
+                                Lihat Kehadiran
                             </a>
                           </td>";
                     echo "</tr>";
@@ -144,7 +146,7 @@ include('config.php');
             </table>
         </div>
         <div class="footer">
-            <a href="tambah_admin.php">TAMBAH TARIKH LATIHAN</a> <!-- Replace 'admin_dashboard.php' with your admin page file -->
+            <a href="tambah_admin1.php">TAMBAH TARIKH LATIHAN</a> <!-- Replace 'admin_dashboard.php' with your admin page file -->
         </div>
     </div>
 </body>
