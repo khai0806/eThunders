@@ -259,47 +259,6 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
     document.head.appendChild(darkModeStyles);
 
-    // Modal Popup for "Isi Kehadiran"
-    const modal = document.createElement('div');
-    modal.style.cssText = `
-        display: none; 
-        position: fixed; 
-        top: 50%; 
-        left: 50%; 
-        transform: translate(-50%, -50%); 
-        background: #fff; 
-        padding: 20px; 
-        border-radius: 10px; 
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
-        z-index: 1000;
-    `;
-    modal.innerHTML = `
-        <h2>Isi Kehadiran</h2>
-        <form id="attendanceForm">
-            <label for="name">Name:</label>
-            <input type="text" id="name" required>
-            <label for="status">Status:</label>
-            <select id="status" required>
-                <option value="present">Present</option>
-                <option value="absent">Absent</option>
-            </select>
-            <button type="submit">Submit</button>
-        </form>
-        <button id="closeModal" style="margin-top: 10px; padding: 10px; background-color: #2176c7; color: #fff; border: none; border-radius: 5px;">Close</button>
-    `;
-    document.body.appendChild(modal);
-
-    document.querySelectorAll('table tr td a').forEach(link => {
-        link.addEventListener('click', function (e) {
-            e.preventDefault();
-            modal.style.display = 'block';
-        });
-    });
-
-    document.getElementById('closeModal').addEventListener('click', function () {
-        modal.style.display = 'none';
-    });
-
     // Handle form submission
     document.getElementById('attendanceForm').addEventListener('submit', function (e) {
         e.preventDefault();

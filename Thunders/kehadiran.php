@@ -1,41 +1,32 @@
-<?php
-// Read attendance data from a file or database
-$attendance_data = [];
 
-// Check if the file exists and read its content
-if (file_exists("attendance_records.txt")) {
-    $file = fopen("attendance_records.txt", "r");
-    while (($line = fgets($file)) !== false) {
-        $record = explode(" | ", trim($line));
-        if (count($record) === 3) {
-            $attendance_data[] = [
-                "angka_giliran" => $record[0],
-                "nama" => $record[1],
-                "status" => $record[2]
-            ];
-        }
-    }
-    fclose($file);
-}
+<?php 
+include('config.php');
+
+$result = mysqli_query($connect, "SELECT * FROM kehadiran");
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kehadiran</title>
+    <title>eThunders Kehadiran Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-image: url('Team_Thunders.jpg');
+            background-image: url('Team_Thunders.jpg'); /* Replace with your image file */
             background-size: cover;
             background-repeat: no-repeat;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+        }
+        .logo-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .logo-container img {
+            width: 180px; 
+            height: auto;
         }
         .container {
             width: 90%;
@@ -65,72 +56,88 @@ if (file_exists("attendance_records.txt")) {
         table {
             width: 100%;
             border-collapse: collapse;
-            background-color: white;
         }
         th, td {
-            border: 1px solid black;
-            padding: 10px;
+            border: 1px solid white;
+            padding: 12px;
             text-align: center;
         }
         th {
             background-color: #2176c7;
             font-weight: bold;
+        }
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        a {
+            text-decoration: none;
             color: white;
+            background-color: #2176c7;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        a:hover {
+            background-color: #1e5ba5;
+            transform: scale(1.05);
         }
         .footer {
-            text-align: center;
             margin-top: 20px;
-            padding: 10px;
+            font-size: 0.9em;
         }
         .footer a {
+            color: #fff;
             text-decoration: none;
             font-weight: bold;
-            color: black;
-            background-color: #e5e5e5;
-            border: 1px solid black;
-            padding: 10px 20px;
-            border-radius: 20px;
-            transition: 0.3s ease;
         }
         .footer a:hover {
-            background-color: #cfcfcf;
+            text-decoration: underline;
+        }
+        @media (max-width: 600px) {
+            .container {
+                width: 95%;
+                padding: 15px;
+            }
+            .header {
+                font-size: 1.5em;
+            }
+            a {
+                padding: 6px 12px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Logo Container -->
+    <div class="logo-container">
+        <img src="logo.png" alt="eThunders Logo"> 
+    </div>
     <div class="container">
-        <!-- Header -->
-        <div class="header">Kehadiran</div>
-
-        <!-- Table -->
+        <div class="header">eThunders Kehadiran admin</div>
         <div class="table-container">
             <table>
-                <tr>
-                    <th>Angka Giliran</th>
-                    <th>Nama</th>
-                    <th>Status Kehadiran</th>
+            <tr>
+                    <th>angka_giliran</th>
+                    <th>nama</th>
+                    <th>kehadiran</th>
+                    <th>tindakan</th>
                 </tr>
-                <?php
-                // Populate the table with attendance data
-                if (!empty($attendance_data)) {
-                    foreach ($attendance_data as $entry) {
-                        echo "<tr>";
-                        echo "<td>{$entry['angka_giliran']}</td>";
-                        echo "<td>{$entry['nama']}</td>";
-                        echo "<td>{$entry['status']}</td>";
-                        echo "</tr>";
-                    }
-                } else {
-                    echo "<tr><td colspan='3'>Tiada data kehadiran.</td></tr>";
-                }
-                ?>
+               <?php
+               $no = 1;
+               while($res = mysqli_fetch_array($result))
+               {
+                 echo "<tr>";
+                 echo "<td>" . $res['angka_giliran'] . "</td>";
+                 echo "<td>" . $res['nama'] . "</td>";
+                 echo "<td>" . $res['kehadiran'] . "</td>";
+         
+                 echo "<td><a href=\"delete.php?angka_giliran=" . $res['angka_giliran'] . "\" onClick=\"return confirm('Adakah anda pasti?')\">HAPUS</a></td>";
+                 $no++;
+               }
+               ?>
             </table>
         </div>
 
-        <!-- Footer -->
-        <div class="footer">
-            <a href="index.php">Halaman Utama</a>
-        </div>
     </div>
 </body>
 </html>

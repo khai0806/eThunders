@@ -120,6 +120,7 @@ include('config.php');
                     <th>MASA</th>
                     <th>AKTIVITI</th>
                     <th>KEHADIRAN</th>
+                    <th>tindakan</th>
                 </tr>
                 <?php
                 $query ="SELECT * FROM jadual_thunders";
@@ -136,10 +137,11 @@ include('config.php');
                         echo "</th>";
                     }
                     echo "<td>
-                            <a href='tambah.php?tarikh'>
+                            <a href='kehadiran.php?tarikh'>
                                 Lihat Kehadiran
                             </a>
                           </td>";
+                    echo "<td><a href=\"delete.php?=tarikh" . $row['tarikh'] . "\" onClick=\"return confirm('Adakah anda pasti?')\">HAPUS</a></td>";
                     echo "</tr>";
                 }
                 ?>

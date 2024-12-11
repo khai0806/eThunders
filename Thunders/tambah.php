@@ -1,110 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eThunders Kehadiran</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background-image: url('Team_Thunders.jpg'); /* Replace with your image file */
-            background-size: cover;
-            background-repeat: no-repeat;
-            margin: 0;
-            font-family: 'Roboto', sans-serif;
-            color: #333;
-        }
-        .form-container {
-            width: 90%;
-            max-width: 400px;
-            margin: 100px auto;
-            padding: 30px;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            text-align: center;
-        }
-        h2 {
-            margin-bottom: 20px;
-            color: #0056b3; /* Blue color */
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 1px solid #0056b3; /* Blue border */
-            border-radius: 5px;
-            transition: border-color 0.3s;
-            font-size: 1em;
-        }
-        input[type="text"]:focus {
-            border-color: #ff3737; /* Red border on focus */
-            outline: none;
-        }
-        input[type="radio"] {
-            margin: 10px 0;
-            width: 20px;
-            height: 20px;
-        }
-        input[type="submit"] {
-            padding: 12px 20px;
-            background: linear-gradient(90deg, #ff3737, #0056b3); /* Red to Blue gradient */
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1em;
-            transition: background 0.3s;
-            margin-top: 20px; /* Add some space above the button */
-        }
-        input[type="submit"]:hover {
-            background: linear-gradient(90deg, #0056b3, #ff3737); /* Blue to Red gradient on hover */
-        }
-        label {
-            display: block;
-            margin: 15px 0 5px;
-            font-weight: bold;
-            text-align: left;
-            color: #0056b3; /* Blue color for labels */
-        }
-    </style>
-</head>
-<body>
-    <div class="form-container">
-        <h2>eThunders Kehadiran</h2>
-        <form action="index.php" method="post"> <!-- Update to kehadiran.php -->
-            <label>ANGKA GILIRAN</label>
-            <input type="text" name="angka_giliran" required>
-
-            <label>NAMA</label>
-            <input type="text" name="nama" required>
-
-            <label>KEHADIRAN</label>
-            <input type="radio" name="hadir" value="Hadir"> Hadir
-            <input type="radio" name="hadir" value="Tidak Hadir"> Tidak Hadir
-
-            <input type="submit" value="Submit">
-        </form>
-    </div>
-</body>
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $angka_giliran = htmlspecialchars($_POST['angka_giliran']);
-    $nama = htmlspecialchars($_POST['nama']);
-    $hadir = htmlspecialchars($_POST['hadir']);
-
-    // Process or save the data as needed
-    echo "<h1>Data Kehadiran</h1>";
-    echo "<p>Angka Giliran: $angka_giliran</p>";
-    echo "<p>Nama: $nama</p>";
-    echo "<p>Status Kehadiran: $hadir</p>";
-
-    // Optionally, save data to a file or database
-    $file = fopen("attendance_records.txt", "a");
-    fwrite($file, "Angka Giliran: $angka_giliran\nNama: $nama\nStatus Kehadiran: $hadir\n---\n");
-    fclose($file);
-}
+include('config.php');
 ?>
+<html>
+<body>
+     <head>
+        <title>Tambah Tarikh Latihan</title>
+        <style>
+            #header {width:100%, height:60px, border:1px solid #333; background-color: beige;}
+        </style>
+     </head>
+<body>
+ 
+ <?php 
 
-</html>
+ if(isset($_POST['submit']))
+
+{
+    $angka_giliran =$_POST["angka_giliran"];
+    $nama = $_POST["nama"];
+    $kehadiran =$_POST["kehadiran"];
+
+    $result = mysqli_query($connect, "INSERT INTO kehadiran (angka_giliran, nama, kehadiran)"."VALUES('$angka_giliran', '$nama', '$kehadiran' )");
+        
+echo "<script> alert ('Berjaya Daftar Maklumat Pelajar');"
+    . "window.location='index.php'</script>";
+} 
+?>
+    <html>
+    <head>
+        <title>TAMBAH REKOD</title>
+    </head>
+    <body bgcolor="cyan">
+    <center> <br><br><h2 style="color: black;">TAMBAH REKOD PELAJAR</h2>
+        <fieldset>
+            <form action="index.php" method="post" name="form1">
+                <table width="25%" border="0">
+
+            <tr>
+                <td style="color:black;">ANGKA_GILIRAN</td>
+                <td><input type="text" name="angka_giliran"></td>
+            </tr>
+
+            <tr>
+                <td style="color:black;">NAMA</td>
+                <td><input type="text" name="nama"></td>
+            </tr>
+
+            <tr>
+                <td style="color:black;">KEHADIRAN</td>
+                <td><select  name="masa">
+                <option>hadir</option>
+                <option>tidak hadir</option>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" name="submit" value="Tambah Rekod"></td>
+
+            </tr>
+        </table>
+    </form>
+
+    <br><a href="admin_login.php">Kembali Ke Laman Utama</a>
+</fieldset>
+</center>
+    </body>
+    </html>
