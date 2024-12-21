@@ -1,4 +1,3 @@
-
 <?php 
 include('config.php');
 ?>
@@ -11,7 +10,7 @@ include('config.php');
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background-image: url('Team_Thunders.jpg'); /* Replace with your image file */
+            background-image: url('2.jpg');
             background-size: cover;
             background-repeat: no-repeat;
             margin: 0;
@@ -23,7 +22,7 @@ include('config.php');
             margin-top: 20px;
         }
         .logo-container img {
-            width: 180px; 
+            width: 180px;
             height: auto;
         }
         .container {
@@ -91,6 +90,22 @@ include('config.php');
         .footer a:hover {
             text-decoration: underline;
         }
+        .index-btn {
+            margin-top: 20px;
+            display: inline-block;
+            color: white;
+            background-color: #2176c7;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: background-color 0.3s, transform 0.2s;
+            text-decoration: none;
+            text-align: center;
+        }
+        .index-btn:hover {
+            background-color: #1e5ba5;
+            transform: scale(1.05);
+        }
         @media (max-width: 600px) {
             .container {
                 width: 95%;
@@ -99,57 +114,49 @@ include('config.php');
             .header {
                 font-size: 1.5em;
             }
-            a {
+            a, .index-btn {
                 padding: 6px 12px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Logo Container -->
     <div class="logo-container">
-        <img src="logo.png" alt="eThunders Logo"> 
+        <img src="logo.png" alt="eThunders Logo">
     </div>
     <div class="container">
-        <div class="header">eThunders Kehadiran admin</div>
+        <div class="header">eThunders Kehadiran Admin</div>
         <div class="table-container">
             <table>
-            <tr>
+                <tr>
                     <th>TARIKH</th>
                     <th>HARI</th>
                     <th>MASA</th>
                     <th>AKTIVITI</th>
                     <th>KEHADIRAN</th>
-                    <th>tindakan</th>
+                    <th>TINDAKAN</th>
                 </tr>
                 <?php
-                $query ="SELECT * FROM jadual_thunders";
-                $result = mysqli_query ($connect,$query);
-            
+                $query = "SELECT * FROM jadual_thunders";
+                $result = mysqli_query($connect, $query);
+
                 while ($row = mysqli_fetch_assoc($result)) {
-                    $id = $row['tarikh'];
-            
-                    echo"<tr>";
-            
-                    foreach ($row as $attribute) {
-                        echo "<th>";
-                        echo ($attribute);
-                        echo "</th>";
-                    }
-                    echo "<td>
-                            <a href='kehadiran.php?tarikh'>
-                                Lihat Kehadiran
-                            </a>
-                          </td>";
-                    echo "<td><a href=\"delete.php?=tarikh" . $row['tarikh'] . "\" onClick=\"return confirm('Adakah anda pasti?')\">HAPUS</a></td>";
+                    echo "<tr>";
+                    echo "<td>" . htmlspecialchars($row['tarikh']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['hari']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['masa']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['aktiviti']) . "</td>";
+                    echo "<td><a href='kehadiran.php?tarikh=" . urlencode($row['tarikh']) . "'>Lihat Kehadiran</a></td>";
+                    echo "<td><a href='delete.php?tarikh=" . urlencode($row['tarikh']) . "' onClick='return confirm(\"Adakah anda pasti?\")'>HAPUS</a></td>";
                     echo "</tr>";
                 }
                 ?>
             </table>
         </div>
         <div class="footer">
-            <a href="tambah_admin1.php">TAMBAH TARIKH LATIHAN</a> <!-- Replace 'admin_dashboard.php' with your admin page file -->
+            <a href="tambah_admin1.php">TAMBAH TARIKH LATIHAN</a>
         </div>
+        <a href="index.php" class="index-btn">KEMBALI KE USER</a>
     </div>
 </body>
 </html>

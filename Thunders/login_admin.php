@@ -1,104 +1,152 @@
-
 <?php
+    include('config.php');
 
-// Hardcoded credentials for the admin
-$admin_username = "admin";
-$admin_password = "password123";
-
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Retrieve the username and password from the form
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    if ($username === $admin_username && $password === $admin_password) {
-        $_SESSION['loggedin'] = true;
-        $_SESSION['username'] = $username;
-
-        header("Location: admin_page.php");
-        exit();
-    } 
-}
+    $error = '';
+    if (isset($_POST['submit'])) {
+        if (empty($_POST['username']) || empty($_POST['password'])) {
+            $error = "Username or password is invalid";
+        } else {
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            $query = mysqli_query($connect, "SELECT * FROM users WHERE password = '$password' AND username = '$username'");
+            $rows = mysqli_num_rows($query);
+            if ($rows == 1) {
+                header('location: admin_page.php');
+                exit;
+            } else {
+                $error = "Username or password is invalid";
+            }
+        }
+    }
 ?>
 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eThunders Admin Login</title>
+    <title>Login - Rekod Kehadiran</title>
     <style>
         body {
-            background-image: url('Team_Thunders.jpg');
             margin: 0;
-            font-family: 'Roboto', sans-serif;
+            padding: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                url('1.jpg') no-repeat center center fixed;
             background-size: cover;
-            background-repeat: no-repeat;
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-        .container {
-            width: 300px;
-            margin: 100px auto;
-            padding: 20px;
-            background-color: #4a90e2;
-            border-radius: 15px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+        .login-container {
+            background-color: #2176c7;
+            padding: 30px 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 20px #2176c7;
+            width: 100%;
+            max-width: 400px;
             text-align: center;
         }
-        .header {
-            font-size: 1.5em;
-            color: white;
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .error-message {
+            background-color: #ff6b6b;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        form {
+            text-align: left;
+        }
+
+        .form-group {
             margin-bottom: 20px;
         }
-        .form-group {
-            margin-bottom: 15px;
-        }
+
         label {
-            font-size: 0.9em;
-            color: white;
             display: block;
+            font-size: 0.9rem;
             margin-bottom: 5px;
+            color: #dcdde1;
         }
-        input[type="text"],
+
+        input[type="text"], 
         input[type="password"] {
-            width: 90%;
+            width: 100%;
             padding: 10px;
+            font-size: 0.9rem;
             border: none;
             border-radius: 5px;
-            font-size: 1em;
+            background-color: #dcdde1;
+            outline: none;
         }
+
         input[type="submit"] {
-            width: 95%;
+            width: 100%;
             padding: 10px;
-            background-color: white;
-            color: #4a90e2;
-            font-size: 1em;
+            font-size: 1rem;
             border: none;
             border-radius: 5px;
+            background-color: #a50e0e;
+            color: #fff;
             cursor: pointer;
-            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s;
         }
+
         input[type="submit"]:hover {
-            background-color: #2176c7;
-            color: white;
+            background-color: #a50e0e;
+            transform: scale(1.05);
         }
-        .admin-view {
-            color: white;
-            font-size: 0.9em;
+
+        .extra-links {
             margin-top: 15px;
+        }
+
+        .extra-links a {
+            color: #dcdde1;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .extra-links a:hover {
+            color: #74b9ff;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">eThunders ADMIN</div>
-        <form action="admin_page.php" method="post">
+    <div class="login-container">
+        <h2>Login</h2>
+
+        <?php if ($error != '') { ?>
+            <div class="error-message">
+                <?php echo $error; ?>
+            </div>
+        <?php } ?>
+
+        <form method="post">
             <div class="form-group">
-                <label for="username">USERNAME</label>
-                <input type="text" id="username" name="username" required>
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required placeholder="Enter your username">
             </div>
             <div class="form-group">
-                <label for="password">PASSWORD</label>
-                <input type="password" id="password" name="password" required>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter your password">
             </div>
-            <input type="submit" value="Submit" href="admin_page.php">
+            <input type="submit" name="submit" value="Login">
         </form>
+    </div>
 </body>
 </html>

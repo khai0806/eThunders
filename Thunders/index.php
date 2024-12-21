@@ -1,346 +1,268 @@
-<?php
-include('config.php');
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eThunders Kehadiran Form</title>
+    <title>Thunders Inspired Homepage</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background-image: url('Team_Thunders.jpg'); /* Replace with your image file */
-            background-size: cover;
-            background-repeat: no-repeat;
             margin: 0;
             font-family: 'Roboto', sans-serif;
-            color: #333;
+            background: url('Team_Thunders.jpg');
+            background-size: cover;
+            color: #ffffff;
         }
-        .logo-container {
-            text-align: center;
-            margin-top: 20px;
-            position: relative;
-        }
-        .logo-container img {
-            width: 150px;
-            height: auto;
-            transition: transform 0.5s ease, box-shadow 0.5s ease;
-        }
-        .logo-container img:hover {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-        }
-        .glow {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 200px;
-            height: 200px;
-            transform: translate(-50%, -50%);
-            background: radial-gradient(circle, rgba(255, 0, 0, 0.6), transparent);
-            border-radius: 50%;
-            filter: blur(30px);
-            animation: glowEffect 2s infinite alternate;
-            pointer-events: none;
-        }
-        @keyframes glowEffect {
-            from {
-                transform: translate(-50%, -50%) scale(0.9);
-                opacity: 0.8;
-            }
-            to {
-                transform: translate(-50%, -50%) scale(1.1);
-                opacity: 0.4;
-            }
-        }
-        .container {
-            width: 90%;
-            max-width: 900px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        }
+
+        /* Header */
         .header {
-            text-align: center;
-            font-size: 2em;
-            color: #fff;
-            background-color: #cd1111;
-            padding: 15px;
-            border-radius: 10px 10px 0 0;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: #202020;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid #cd1111;
         }
-        table {
+
+        .logo img {
+            width: 140px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .navbar ul li a:hover {
+            color: #cd1111;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-image: url('hero.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-text {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            color: #ffffff;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px #000;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .cta {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #cd1111;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            transition: background 0.3s ease;
+        }
+
+        .cta:hover {
+            background: #a40d0d;
+        }
+
+        /* Featured Content */
+        .featured-content {
+            padding: 60px 30px;
+            background: #181818;
+        }
+
+        .featured-content h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #cd1111;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .grid article {
+            background: #202020;
+            border: 1px solid #333;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .grid article:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .grid article img {
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
         }
-        th, td {
+
+        .grid article h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .grid article p {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #aaaaaa;
+        }
+
+        /* Footer */
+        footer {
+            padding: 20px 30px;
             text-align: center;
-            padding: 12px 10px;
-            border: 1px solid #ddd;
+            background: #121212;
+            border-top: 2px solid #cd1111;
         }
-        th {
-            background-color: #2176c7;
-            color: white;
-            font-weight: bold;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        tr:hover {
-            background-color: rgba(33, 118, 199, 0.1);
-        }
-        a {
+
+        .social-media a {
+            color: #cd1111;
             text-decoration: none;
-            color: white;
-            background-color: #2176c7;
-            padding: 8px 12px;
-            border-radius: 5px;
+            margin: 0 10px;
+            font-size: 1.2rem;
             font-weight: bold;
-            transition: background-color 0.3s ease;
+            transition: color 0.3s ease;
         }
-        a:hover {
-            background-color: #1e5ba5;
+
+        .social-media a:hover {
+            color: #a40d0d;
         }
-        .footer {
-            text-align: center;
-            margin-top: 20px;
+
+        footer p {
+            font-size: 0.9rem;
+            color: #aaaaaa;
+            margin-top: 10px;
         }
-        .footer a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 8px 15px;
-            background-color: #cd1111;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-        .footer a:hover {
-            background-color: #a80e0e;
-        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .container {
-                padding: 15px;
+            .hero h1 {
+                font-size: 2.5rem;
             }
-            th, td {
-                font-size: 0.9em;
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
             }
         }
     </style>
 </head>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const container = document.querySelector('.container');
-
-    // Loading Spinner
-    const spinner = document.createElement('div');
-    spinner.className = 'spinner';
-    spinner.style.cssText = `
-        display: none; 
-        position: fixed; 
-        top: 50%; 
-        left: 50%; 
-        transform: translate(-50%, -50%); 
-        border: 8px solid #f3f3f3; 
-        border-top: 8px solid #3498db; 
-        border-radius: 50%; 
-        width: 50px; 
-        height: 50px; 
-        animation: spin 1s linear infinite;
-        z-index: 1000;
-    `;
-    document.body.appendChild(spinner);
-
-    // Show spinner while loading data
-    spinner.style.display = 'block';
-
-    // Fetch data and populate table
-    fetch('fetch_data.php') // Create a separate PHP file to fetch data
-        .then(response => response.json())
-        .then(data => {
-            spinner.style.display = 'none';
-            populateTable(data);
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-            spinner.style.display = 'none';
-        });
-
-    function populateTable(data) {
-        const tableBody = document.querySelector('table tbody');
-        tableBody.innerHTML = ''; // Clear existing rows
-        data.forEach(row => {
-            const tr = document.createElement('tr');
-            Object.values(row).forEach(attribute => {
-                const td = document.createElement('td');
-                td.textContent = attribute;
-                tr.appendChild(td);
-            });
-            const actionTd = document.createElement('td');
-            const link = document.createElement('a');
-            link.href = '#';
-            link.className = 'attendance-link';
-            link.dataset.tarikh = row.tarikh;
-            link.textContent = 'Isi Kehadiran';
-            actionTd.appendChild(link);
-            tr.appendChild(actionTd);
-            tableBody.appendChild(tr);
-        });
-    }
-
-    // Search Bar with Column Filter
-    const searchBar = document.createElement('div');
-    searchBar.innerHTML = `
-        <div style="margin-bottom: 20px;">
-            <label for="searchColumn" style="font-weight: bold;">Search Column:</label>
-            <select id="searchColumn" style="margin-left: 10px; padding: 5px; border-radius: 5px;">
-                <option value="all">All</option>
-                <option value="0">TARIKH</option>
-                <option value="1">HARI</option>
-                <option value="2">MASA</option>
-                <option value="3">AKTIVITI</option>
-            </select>
-            <input id="searchInput" type="text" placeholder="Search..." style="margin-left: 10px; padding: 8px; width: 50%; border: 1px solid #ddd; border-radius: 5px;">
-        </div>
-    `;
-    container.insertBefore(searchBar, container.querySelector('table'));
-
-    document.getElementById('searchInput').addEventListener('keyup', function () {
-        const filter = this.value.toLowerCase();
-        const column = document.getElementById('searchColumn').value;
-        const rows = document.querySelectorAll('table tr:not(:first-child)');
-
-        rows.forEach(row => {
-            const cells = row.querySelectorAll('td');
-            let match = false;
-
-            if (column === 'all') {
-                cells.forEach(cell => {
-                    if (cell.textContent.toLowerCase().includes(filter)) match = true;
-                });
-            } else {
-                const cell = cells[column];
-                if (cell && cell.textContent.toLowerCase().includes(filter)) match = true;
-            }
-            row.style.display = match ? '' : 'none';
-        });
-    });
-
-    // Dark/Light Mode Toggle
-    const toggleButton = document.createElement('button');
-    toggleButton.textContent = 'Dark Mode';
-    toggleButton.style.cssText = 'margin: 10px; padding: 10px  15px; background-color: #2176c7; color: #fff; border: none; border-radius: 5px; cursor: pointer;';
-    container.insertBefore(toggleButton, container.firstChild);
-
-    toggleButton.addEventListener('click', function () {
-        document.body.classList.toggle('dark-mode');
-        toggleButton.textContent = document.body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
-    });
-
-    const darkModeStyles = document.createElement('style');
-    darkModeStyles.textContent = `
-        body.dark-mode {
-            background-color: #333;
-            color: #ddd;
-        }
-        body.dark-mode .container {
-            background-color: rgba(50, 50, 50, 0.95);
-        }
-        body.dark-mode th {
-            background-color: #444;
-        }
-        body.dark-mode tr:nth-child(even) {
-            background-color: #555;
-        }
-    `;
-    document.head.appendChild(darkModeStyles);
-
-    // Handle form submission
-    document.getElementById('attendanceForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-        const name = document.getElementById('name').value;
-        const status = document.getElementById('status').value;
-        const tarikh = e.target.querySelector('.attendance-link').dataset.tarikh;
-
-        // Simulate a successful submission
-        alert(`Attendance submitted for ${name} on ${tarikh} as ${status}`);
-        modal.style.display = 'none';
-
-        // Optionally, you can add code here to send the data to the server
-    });
-
-    // Toast Notification Function
-    function showToast(message) {
-        const toast = document.createElement('div');
-        toast.textContent = message;
-        toast.style.cssText = `
-            position: fixed; 
-            bottom: 20px; 
-            right: 20px; 
-            background: #333; 
-            color: #fff; 
-            padding: 10px 20px; 
-            border-radius: 5px; 
-            opacity: 0.9; 
-            transition: opacity 0.5s ease;
-        `;
-        document.body.appendChild(toast);
-        setTimeout(() => {
-            toast.style.opacity = '0';
-            setTimeout(() => {
-                document.body.removeChild(toast);
-            }, 500);
-        }, 3000);
-    }
-
-    // Call showToast when attendance is submitted
-    document.getElementById('attendanceForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-        const name = document.getElementById('name').value;
-        const status = document.getElementById('status').value;
-        showToast(`Attendance submitted for ${name} as ${status}`);
-        modal.style.display = 'none';
-    });
-});
-</script>
 <body>
-    <div class="logo-container">
-        <div class="glow"></div>
-        <img src="logo.png" alt="eThunders Logo">
-    </div>
-    <div class="container">
-        <div class="header">eThunders Kehadiran</div>
-        <table>
-            <tr>
-                <th>TARIKH</th>
-                <th>HARI</th>
-                <th>MASA</th>
-                <th>AKTIVITI</th>
-                <th>KEHADIRAN</th>
-            </tr>
-            <?php
-            $query = "SELECT * FROM jadual_thunders";
-            $result = mysqli_query($connect, $query);
-
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<tr>";
-                foreach ($row as $attribute) {
-                    echo "<td>" . htmlspecialchars($attribute) . "</td>";
-                }
-                echo "<td>
-                        <a href='tambah.php?tarikh=" . urlencode($row['tarikh']) . "'>Isi Kehadiran</a>
-                      </td>";
-                echo "</tr>";
-            }
-            ?>
-        </table>
-        <div class="footer">
-            <a href="login_admin.php">ADMIN</a>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <img src="logo.png" alt="Thunders Logo">
         </div>
-    </div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="#news">News</a></li>
+                <li><a href="#videos">Videos</a></li>
+                <li><a href="#shop">Shop</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Thunders Inspired Design</h1>
+            <p>Empowering the next generation of excellence through design.</p>
+            <a href="homepage.php" class="cta">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Featured Content -->
+    <section class="featured-content" id="news">
+        <h2>Latest News</h2>
+        <div class="grid">
+            <article>
+                <img src="news1.jpg" alt="News 1">
+                <h3>Victory at Thunder Cup</h3>
+                <p>Read about our latest achievement in the Thunder Cup Finals.</p>
+            </article>
+            <article>
+                <img src="news2.jpg" alt="News 2">
+                <h3>Team Expansion</h3>
+                <p>We’re excited to welcome new talent to our growing team.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="social-media">
+            <a href="https://www.facebook.com/KVSepang/?locale=ms_MY">Facebook</a>
+            <a href="https://www.tiktok.com/@kv.sepang.official">Tiktok</a>
+            <a href="https://www.instagram.com/kvsepang_official/?hl=en">Instagram</a>
+        </div>
+        <p>&copy; 2024 THUNDERS. All rights reserved.</p>
+    </footer>
 </body>
 </html>
